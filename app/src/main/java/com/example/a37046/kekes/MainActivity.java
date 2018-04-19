@@ -1,13 +1,10 @@
 package com.example.a37046.kekes;
 
-import android.nfc.Tag;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -50,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setListenner();
 
 
+
     }
 
     private void setListenner() {
@@ -63,22 +61,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onTabSelected(int position) {
             post = position;
-            Toast.makeText(MainActivity.this, "我是" + post, Toast.LENGTH_SHORT).show();
-//            switch (position){
-//                case 0:
-//                    post=0;
-//                    break;
-//                case 1:
-//                    post=0;
-//                    break;
-//                case 2:
-//                    break;
-//                case 3:
-//                    break;
-//                case 4:
-//                    break;
-//            }
-
             //根据位置得到fragment
             BaseFragment to = getFragment();
             //替换
@@ -99,34 +81,30 @@ public class MainActivity extends AppCompatActivity {
                 if (!to.isAdded()) {
                     //没有被添加
                     //from隐藏
-                    if (from==null){
+                    if (from!=null){
                         ft.hide(from);
                     }
 
                     //添加to
+
                     if (to!=null){
                         ft.add(R.id.fl_context,to).commit();
                     }
+
                 } else {
                     //to已经被添加了
                     //from隐藏
-                    if (from==null){
-                        ft.hide(from);
+                    if (from!=null){
+                        ft.hide(from); //hide隐藏
                     }
                     //显示to
                     if (to!=null){
-                        ft.show(to).commit();
+                        ft.show(to).commit();  //显示to
                     }
                 }
             }
 
         }
-//        private void switchFragment(BaseFragment fragment) {
-//            FragmentManager fm=getSupportFragmentManager();
-//            FragmentTransaction fragmentTransaction = fm.beginTransaction();
-//            fragmentTransaction.replace(R.id.fl_context,fragment);
-//            fragmentTransaction.commit();
-//        }
 
         /**
          * 根据位置得到fragment
@@ -150,28 +128,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-//    private void setListenner() {
-//
-//        bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener(){
-//            @Override
-//            public void onTabSelected(int position) {
-//
-//            }
-//            @Override
-//            public void onTabUnselected(int position) {
-//
-//            }
-//            @Override
-//            public void onTabReselected(int position) {
-//                FragmentManager fm=getSupportFragmentManager();
-//                FragmentTransaction fragmentTransaction = fm.beginTransaction();
-//                fragmentTransaction.replace(R.id.fl_context,mfragment);
-//                fragmentTransaction.commit();
-//            }
-//        });
-//
-//    }
-
     private void initFragment() {
 
         mBaseFragments = new ArrayList<>();
@@ -184,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void initView() {
         bottomNavigationBar = findViewById(R.id.bottom_navigation_bar);
+
     }
 
     public void titleBarSet() {
@@ -197,22 +154,10 @@ public class MainActivity extends AppCompatActivity {
                 .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games"))
                 .initialise();
 
     }
 
-    public void twoTest() {
-        TextBadgeItem numberBadgeItem = new TextBadgeItem();
-        ShapeBadgeItem shapeBadgeItem = new ShapeBadgeItem();
-        bottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(numberBadgeItem));
-
-        bottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home").setActiveColorResource(R.color.orange).setBadgeItem(shapeBadgeItem));
-
-        numberBadgeItem.setText("你好");// whenever you need to update code
-    }
 
 
 }
