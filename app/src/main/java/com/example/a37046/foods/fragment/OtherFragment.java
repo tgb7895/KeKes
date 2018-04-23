@@ -22,8 +22,7 @@ public class OtherFragment extends BaseFragment {
         textView.setTextSize(20);
         textView.setGravity(Gravity.CENTER);
         textView.setTextColor(Color.RED);
-        Toast.makeText(mContext, "我是碎片4", Toast.LENGTH_SHORT).show();
-        return null;
+        return textView;
 
     }
 
