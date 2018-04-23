@@ -1,4 +1,4 @@
-package com.example.a37046.kekes.fragment;
+package com.example.a37046.foods.fragment;
 
 import android.graphics.Color;
 import android.util.Log;
@@ -7,22 +7,22 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.a37046.kekes.base.BaseFragment;
+import com.example.a37046.foods.base.BaseFragment;
 
-public class CustomFragment extends BaseFragment {
+public class OtherFragment extends BaseFragment {
 
     private TextView textView;
-    private static final String Tag=CustomFragment.class.getSimpleName();//CommonFrameFragment
+    private static final String Tag=OtherFragment.class.getSimpleName();//CommonFrameFragment
 
     @Override
     protected View initView() {
 
-        Log.d(Tag,"自定义Fragment初始化");
+        Log.d(Tag,"其他Fragment初始化");
         textView=new TextView(mContext);
         textView.setTextSize(20);
         textView.setGravity(Gravity.CENTER);
         textView.setTextColor(Color.RED);
-        Toast.makeText(mContext, "我是碎片3", Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, "我是碎片4", Toast.LENGTH_SHORT).show();
         return null;
 
     }
@@ -31,6 +31,6 @@ public class CustomFragment extends BaseFragment {
     protected void initData() {
         super.initData();
         Log.d(Tag,"页面数据初始化");
-        textView.setText("自定义页面");
+        textView.setText("其他页面");
     }
 }

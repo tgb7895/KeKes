@@ -1,4 +1,6 @@
-package com.example.a37046.kekes;
+package com.example.a37046.foods;
+
+import com.example.a37046.foods.activity.LoginActivity;
 
 import org.junit.Test;
 
@@ -13,5 +15,12 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
+    }
+
+    @Test
+    public void s2(){
+        LoginActivity loginActivity = new LoginActivity();
+        loginActivity.landingJudgment("lnn","11");
+
     }
 }

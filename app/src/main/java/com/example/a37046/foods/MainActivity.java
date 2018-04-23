@@ -1,4 +1,4 @@
-package com.example.a37046.kekes;
+package com.example.a37046.foods;
 
 import android.nfc.Tag;
 import android.support.v4.app.Fragment;
@@ -13,11 +13,11 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.ashokvarma.bottomnavigation.ShapeBadgeItem;
 import com.ashokvarma.bottomnavigation.TextBadgeItem;
-import com.example.a37046.kekes.base.BaseFragment;
-import com.example.a37046.kekes.fragment.CommonFrameFragment;
-import com.example.a37046.kekes.fragment.CustomFragment;
-import com.example.a37046.kekes.fragment.OtherFragment;
-import com.example.a37046.kekes.fragment.ThirdPartyFragment;
+import com.example.a37046.foods.base.BaseFragment;
+import com.example.a37046.foods.fragment.CommonFrameFragment;
+import com.example.a37046.foods.fragment.CustomFragment;
+import com.example.a37046.foods.fragment.OtherFragment;
+import com.example.a37046.foods.fragment.ThirdPartyFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!to.isAdded()) {
                     //没有被添加
                     //from隐藏
-                    if (from==null){
+                    if (from!=null){
                         ft.hide(from);
                     }
 
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     //to已经被添加了
                     //from隐藏
-                    if (from==null){
+                    if (from!=null){
                         ft.hide(from);
                     }
                     //显示to
@@ -197,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
                 .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music"))
                 .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_videogame_asset_white_24dp, "Games"))
                 .initialise();
 
     }

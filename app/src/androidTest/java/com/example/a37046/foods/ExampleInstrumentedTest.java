@@ -1,4 +1,4 @@
-package com.example.a37046.kekes;
+package com.example.a37046.foods;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
