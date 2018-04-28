@@ -1,5 +1,6 @@
 package com.example.a37046.foods.Adapter;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.a37046.foods.R;
+import com.example.a37046.foods.activity.StoreDetailsActivity;
 import com.example.a37046.foods.entity.HomeEntity;
 
 import java.util.List;
@@ -26,7 +28,7 @@ public class HomebaseAdapter extends RecyclerView.Adapter<HomebaseAdapter.Viewho
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view= LayoutInflater.from(parent.getContext())
+        final View view= LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.home_adapter,parent,false);
         final Viewholder holder=new Viewholder(view);
         holder.foods.setOnClickListener(new View.OnClickListener() {
@@ -34,7 +36,12 @@ public class HomebaseAdapter extends RecyclerView.Adapter<HomebaseAdapter.Viewho
             public void onClick(View v) {
                 int postion=holder.getAdapterPosition();
                 HomeEntity homeEntity=mhomeLists.get(postion);
-                Toast.makeText(v.getContext(),"you click"+postion,Toast.LENGTH_SHORT).show();
+
+
+                int shopId = mhomeLists.get(postion).getShop_id();
+                Intent intent=new Intent(view.getContext(), StoreDetailsActivity.class);
+                intent.putExtra("shopId",shopId);
+                view.getContext().startActivity(intent);
             }
         });
 

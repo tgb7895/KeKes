@@ -56,8 +56,59 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationBar.setTabSelectedListener(new MyOnCheckedChangeListener());
         //第一次启动需要默认开启一个
         //   new MyOnCheckedChangeListener().switchFragment(mBaseFragments.get(0));
+
+        post=0;
+        //根据位置得到fragment
+        BaseFragment to = getFragment();
+        //替换
+        switchFragment(mContent, to);
     }
 
+    /**
+     * @param from 刚显示的fragment，马上要被隐藏
+     * @param to   马上要切换到的fragment,一会要显示
+     */
+    private void switchFragment(Fragment from, Fragment to) {
+
+        if (from != to) {
+            mContent = to;
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            //才切换
+            //判断有没有被添加
+            if (!to.isAdded()) {
+                //没有被添加
+                //from隐藏
+                if (from!=null){
+                    ft.hide(from);
+                }
+
+                //添加to
+                if (to!=null){
+                    ft.add(R.id.fl_context,to).commit();
+                }
+            } else {
+                //to已经被添加了
+                //from隐藏
+                if (from!=null){
+                    ft.hide(from);
+                }
+                //显示to
+                if (to!=null){
+                    ft.show(to).commit();
+                }
+            }
+        }
+
+    }
+    /**
+     * 根据位置得到fragment
+     *
+     * @return
+     */
+    private BaseFragment getFragment() {
+        BaseFragment fragment = mBaseFragments.get(post);
+        return fragment;
+    }
     class MyOnCheckedChangeListener implements BottomNavigationBar.OnTabSelectedListener {
 
         @Override
@@ -82,45 +133,10 @@ public class MainActivity extends AppCompatActivity {
             //根据位置得到fragment
             BaseFragment to = getFragment();
             //替换
-            switchFragment(mContent, to);
+            switchFragment(mContent,to);
         }
 
-        /**
-         * @param from 刚显示的fragment，马上要被隐藏
-         * @param to   马上要切换到的fragment,一会要显示
-         */
-        private void switchFragment(Fragment from, Fragment to) {
 
-            if (from != to) {
-                mContent = to;
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                //才切换
-                //判断有没有被添加
-                if (!to.isAdded()) {
-                    //没有被添加
-                    //from隐藏
-                    if (from!=null){
-                        ft.hide(from);
-                    }
-
-                    //添加to
-                    if (to!=null){
-                        ft.add(R.id.fl_context,to).commit();
-                    }
-                } else {
-                    //to已经被添加了
-                    //from隐藏
-                    if (from!=null){
-                        ft.hide(from);
-                    }
-                    //显示to
-                    if (to!=null){
-                        ft.show(to).commit();
-                    }
-                }
-            }
-
-        }
 //        private void switchFragment(BaseFragment fragment) {
 //            FragmentManager fm=getSupportFragmentManager();
 //            FragmentTransaction fragmentTransaction = fm.beginTransaction();
@@ -128,15 +144,7 @@ public class MainActivity extends AppCompatActivity {
 //            fragmentTransaction.commit();
 //        }
 
-        /**
-         * 根据位置得到fragment
-         *
-         * @return
-         */
-        private BaseFragment getFragment() {
-            BaseFragment fragment = mBaseFragments.get(post);
-            return fragment;
-        }
+
 
         @Override
         public void onTabUnselected(int position) {
@@ -193,10 +201,10 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationBar.setMode(BottomNavigationBar.MODE_SHIFTING);
         bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_RIPPLE);
         bottomNavigationBar
-                .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "Home"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "Books"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "Music"))
-                .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "Movies & TV"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_home_white_24dp, "首页"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_book_white_24dp, "收藏"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_music_note_white_24dp, "搜索"))
+                .addItem(new BottomNavigationItem(R.drawable.ic_tv_white_24dp, "我"))
                 .initialise();
 
     }

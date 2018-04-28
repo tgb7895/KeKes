@@ -1,18 +1,22 @@
 package com.example.a37046.foods.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.a37046.foods.MainActivity;
 import com.example.a37046.foods.R;
 import com.example.a37046.foods.entity.UserLogin;
 import com.example.a37046.foods.util.HttpUtil;
 import com.google.gson.Gson;
-
 
 import java.io.IOException;
 
@@ -25,6 +29,24 @@ public class LoginActivity extends AppCompatActivity {
     EditText mloginPassword;
     Button loginButton;
     private ProgressDialog progressDialog;
+
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            UserLogin userLogin= (UserLogin) msg.obj;
+
+            if(!(userLogin.getUserid().equals("0"))){
+                SharedPreferences.Editor editor=getSharedPreferences("login",MODE_PRIVATE).edit();
+                editor.putString("success",userLogin.getUserid());
+                editor.apply();
+                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }else{
+                Toast.makeText(getApplicationContext(),"密码或账户错误",Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,9 +87,9 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.isSuccessful()){
                         String jsonLogin = response.body().string();
                         UserLogin userLogin = new Gson().fromJson(jsonLogin, UserLogin.class);
-                        Log.d("登陆信息",userLogin.getUserid());
-
-
+                        Message message=new Message();
+                        message.obj=userLogin;
+                        handler.sendMessage(message);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -75,6 +97,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         }).start();
     }
+
+
+//      public void buildProgressDialog(int id) {
+//        if (progressDialog == null) {
+//            progressDialog = new ProgressDialog();
+//            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        }
+//        progressDialog.setMessage(getString(id));
+//        progressDialog.setCancelable(true);
+//        progressDialog.show();
+//    }
 
 
 }
