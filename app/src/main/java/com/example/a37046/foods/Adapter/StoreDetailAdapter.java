@@ -36,7 +36,7 @@ public class StoreDetailAdapter extends RecyclerView.Adapter<StoreDetailAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final StoreDetailAdapter.Viewholder holder,final int position) {
+    public void onBindViewHolder(@NonNull final StoreDetailAdapter.Viewholder holder,int position) {
 
         FoodByShop foodByShop=mfoodByShops.get(position);
         Glide.with(holder.itemView.getContext()).load(foodByShop.getPic()).into(holder.imageView);
@@ -48,7 +48,7 @@ public class StoreDetailAdapter extends RecyclerView.Adapter<StoreDetailAdapter.
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),String.valueOf(position),Toast.LENGTH_SHORT).show();
+
             }
         });
     }
