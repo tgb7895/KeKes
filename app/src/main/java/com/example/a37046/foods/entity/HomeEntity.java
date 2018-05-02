@@ -1,6 +1,8 @@
 package com.example.a37046.foods.entity;
 
-public class HomeEntity {
+import java.io.Serializable;
+
+public class HomeEntity implements Serializable {
     private int shop_id;
 
     private String shopname;

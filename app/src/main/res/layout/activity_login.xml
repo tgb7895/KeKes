@@ -34,12 +34,14 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:background="#EEEFFF" />
+
         <EditText
             android:id="@+id/login_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="8"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:text="370" />
     </LinearLayout>
 
     <LinearLayout
@@ -61,12 +63,14 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:background="#EEEFFF" />
+
         <EditText
             android:id="@+id/login_password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="8"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:text="11" />
     </LinearLayout>
 
     <CheckBox

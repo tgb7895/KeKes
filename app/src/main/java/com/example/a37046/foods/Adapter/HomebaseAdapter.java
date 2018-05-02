@@ -1,6 +1,7 @@
 package com.example.a37046.foods.Adapter;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,8 +40,16 @@ public class HomebaseAdapter extends RecyclerView.Adapter<HomebaseAdapter.Viewho
 
 
                 int shopId = mhomeLists.get(postion).getShop_id();
+                String shopName=mhomeLists.get(postion).getShopname();
                 Intent intent=new Intent(view.getContext(), StoreDetailsActivity.class);
                 intent.putExtra("shopId",shopId);
+                intent.putExtra("shopname",shopName);
+
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("home_entity",homeEntity);
+                intent.putExtras(bundle);
+
+
                 view.getContext().startActivity(intent);
             }
         });

@@ -1,5 +1,6 @@
 package com.example.a37046.foods.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,10 +18,12 @@ import com.example.a37046.foods.Adapter.HomebaseAdapter;
 import com.example.a37046.foods.Adapter.StoreDetailAdapter;
 import com.example.a37046.foods.R;
 import com.example.a37046.foods.entity.FoodByShop;
+import com.example.a37046.foods.entity.HomeEntity;
 import com.example.a37046.foods.entity.Success;
 import com.example.a37046.foods.util.HttpUtil;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +43,10 @@ public class StoreDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_details);
+        Intent intent = getIntent();
+        HomeEntity home_entity = (HomeEntity) intent.getSerializableExtra("home_entity");
+
+
 
         //收藏按钮
         Button collectButton=findViewById(R.id.details_like_button);
@@ -57,7 +64,7 @@ public class StoreDetailsActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.food_shop_list);
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        storeDetailAdapter = new StoreDetailAdapter(foodByShops);
+        storeDetailAdapter = new StoreDetailAdapter(foodByShops,home_entity);
         recyclerView.setAdapter(storeDetailAdapter);
         loadingNetworkData();
 

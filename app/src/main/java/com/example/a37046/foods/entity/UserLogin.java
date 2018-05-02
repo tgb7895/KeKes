@@ -1,6 +1,8 @@
 package com.example.a37046.foods.entity;
 
-public class UserLogin {
+import java.io.Serializable;
+
+public class UserLogin implements Serializable{
     private String userid;
 
     public String getUserid() {

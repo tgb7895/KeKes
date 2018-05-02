@@ -49,6 +49,7 @@ public class CommonFrameFragment extends BaseFragment {
 
         View view=View.inflate(mContext,R.layout.fragment_home,null);
 
+
        mhomeLists= new ArrayList<>();
 
         recyclerView=view.findViewById(R.id.fragment_home_recycler_view);

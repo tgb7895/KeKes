@@ -17,7 +17,7 @@ public class TitleLayout extends LinearLayout{
         LayoutInflater.from(context).inflate(R.layout.detail_titlebar,this);
 
         Button back=findViewById(R.id.details_back_button);
-        Button like=findViewById(R.id.details_like_button);
+//        Button like=findViewById(R.id.details_like_button);
 
         back.setOnClickListener(new OnClickListener() {
             @Override
@@ -26,11 +26,11 @@ public class TitleLayout extends LinearLayout{
             }
         });
 
-        like.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        like.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 }

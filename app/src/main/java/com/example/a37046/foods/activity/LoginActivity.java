@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -37,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
             if(!(userLogin.getUserid().equals("0"))){
                 SharedPreferences.Editor editor=getSharedPreferences("login",MODE_PRIVATE).edit();
-                editor.putString("success",userLogin.getUserid());
+                editor.putString("login_id",userLogin.getUserid());
                 editor.apply();
                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(intent);
@@ -75,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
     public void landingJudgment(String username,String password){
         final String s=username;
         final String p=password;
+        persistentStorage(s,p);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -98,6 +100,12 @@ public class LoginActivity extends AppCompatActivity {
         }).start();
     }
 
+    public void persistentStorage(String user,String password){
+        SharedPreferences.Editor editor=getSharedPreferences("login",MODE_PRIVATE).edit();
+        editor.putString("username",user);
+        editor.putString("password",password);
+        editor.apply();
+    }
 
 //      public void buildProgressDialog(int id) {
 //        if (progressDialog == null) {

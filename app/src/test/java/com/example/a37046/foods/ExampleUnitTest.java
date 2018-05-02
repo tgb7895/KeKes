@@ -4,6 +4,10 @@ import com.example.a37046.foods.activity.LoginActivity;
 
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
 /**
@@ -17,10 +21,4 @@ public class ExampleUnitTest {
         assertEquals(4, 2 + 2);
     }
 
-    @Test
-    public void s2(){
-        LoginActivity loginActivity = new LoginActivity();
-        loginActivity.landingJudgment("lnn","11");
-
-    }
 }

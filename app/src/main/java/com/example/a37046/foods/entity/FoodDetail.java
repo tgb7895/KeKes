@@ -2,29 +2,15 @@ package com.example.a37046.foods.entity;
 
 import java.io.Serializable;
 
-public class FoodByShop implements Serializable {
+public class FoodDetail implements Serializable {
     private int food_id;
-
     private String foodname;
-
     private String intro;
-
     private String pic;
-
     private int price;
-
     private int shop_id;
-
     private int type_id;
-
     private int recommand;
-
-    public FoodByShop() {
-    }
-
-    public FoodByShop(String foodname) {
-        this.foodname = foodname;
-    }
 
     public int getFood_id() {
         return food_id;
