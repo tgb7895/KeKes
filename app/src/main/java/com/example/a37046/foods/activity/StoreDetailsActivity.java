@@ -41,14 +41,15 @@ public class StoreDetailsActivity extends AppCompatActivity {
     //判断收藏
     private int flagCollect;
 
+    HomeEntity home_entity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_details);
         Intent intent = getIntent();
-        HomeEntity home_entity = (HomeEntity) intent.getSerializableExtra("home_entity");
 
-
+        home_entity = (HomeEntity) intent.getSerializableExtra("home_entity");
 
         //收藏按钮
 
@@ -62,7 +63,7 @@ public class StoreDetailsActivity extends AppCompatActivity {
 
         checkCollection();
         TextView detailsName=findViewById(R.id.details_name);
-        detailsName.setText(getShopName());
+        detailsName.setText(home_entity.getShopname());
 
         foodByShops=new ArrayList<>();
         recyclerView=findViewById(R.id.food_shop_list);
@@ -74,27 +75,27 @@ public class StoreDetailsActivity extends AppCompatActivity {
 
 
     }
-
-    /**
-     * 获取上个活动传来的shopId
-     */
-    public int getShopId(){
-        int shopId = getIntent().getIntExtra("shopId",-1);
-        if (shopId!=-1){
-            return shopId;
-        }
-        return shopId;
-    }
-
-    /**
-     * 获取上个互动传来的shopname
-     * @return
-     */
-    public String getShopName(){
-        String shopName=getIntent().getStringExtra("shopname");
-
-        return shopName;
-    }
+//
+//    /**
+//     * 获取上个活动传来的shopId
+//     */
+//    public int getShopId(){
+//        int shopId = getIntent().getIntExtra("shopId",-1);
+//        if (shopId!=-1){
+//            return shopId;
+//        }
+//        return shopId;
+//    }
+//
+//    /**
+//     * 获取上个互动传来的shopname
+//     * @return
+//     */
+//    public String getShopName(){
+//        String shopName=getIntent().getStringExtra("shopname");
+//
+//        return shopName;
+//    }
     /**
      * 获取用户id
      */
@@ -111,7 +112,7 @@ public class StoreDetailsActivity extends AppCompatActivity {
                 try {
                     OkHttpClient okHttpClient = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("http://" + HttpUtil.SERVER + "/getFoodByShop.do?shop_id="+getShopId())
+                            .url("http://" + HttpUtil.SERVER + "/getFoodByShop.do?shop_id="+home_entity.getShop_id())
                             .build();
                     Response response = okHttpClient.newCall(request).execute();
                     if (response.isSuccessful()){
@@ -143,7 +144,7 @@ public class StoreDetailsActivity extends AppCompatActivity {
                 try {
                     OkHttpClient okHttpClient=new OkHttpClient();
                     Request request2=new Request.Builder()
-                            .url("http://" + HttpUtil.SERVER + "/isCollected.do?user_id="+getUserId()+"&shop_food_id="+getShopId()+"&flag=0")
+                            .url("http://" + HttpUtil.SERVER + "/isCollected.do?user_id="+getUserId()+"&shop_food_id="+home_entity.getShop_id()+"&flag=0")
                             .build();
                     Response response2=okHttpClient.newCall(request2).execute();
                     Success suc2 = null;
@@ -180,7 +181,7 @@ public class StoreDetailsActivity extends AppCompatActivity {
                 try {
                     OkHttpClient okHttpClient=new OkHttpClient();
                     Request request1=new Request.Builder()
-                            .url("http://" + HttpUtil.SERVER + "/userCollectShop.do?user_id="+getUserId()+"&shop_id="+getShopId())
+                            .url("http://" + HttpUtil.SERVER + "/userCollectShop.do?user_id="+getUserId()+"&shop_id="+home_entity.getShop_id())
                             .build();
                     Response response1=okHttpClient.newCall(request1).execute();
                     //未使用  等待优化
@@ -190,7 +191,7 @@ public class StoreDetailsActivity extends AppCompatActivity {
                         suc1=JSON.parseObject(json,Success.class);
                     }
                     Request request2=new Request.Builder()
-                            .url("http://" + HttpUtil.SERVER + "/isCollected.do?user_id="+getUserId()+"&shop_food_id="+getShopId()+"&flag=0")
+                            .url("http://" + HttpUtil.SERVER + "/isCollected.do?user_id="+getUserId()+"&shop_food_id="+home_entity.getShop_id()+"&flag=0")
                             .build();
                     Response response2=okHttpClient.newCall(request2).execute();
                     Success suc2 = null;

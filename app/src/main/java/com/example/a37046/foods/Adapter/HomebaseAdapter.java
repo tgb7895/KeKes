@@ -42,8 +42,6 @@ public class HomebaseAdapter extends RecyclerView.Adapter<HomebaseAdapter.Viewho
                 int shopId = mhomeLists.get(postion).getShop_id();
                 String shopName=mhomeLists.get(postion).getShopname();
                 Intent intent=new Intent(view.getContext(), StoreDetailsActivity.class);
-                intent.putExtra("shopId",shopId);
-                intent.putExtra("shopname",shopName);
 
                 Bundle bundle=new Bundle();
                 bundle.putSerializable("home_entity",homeEntity);
