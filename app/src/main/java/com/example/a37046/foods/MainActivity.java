@@ -1,12 +1,9 @@
 package com.example.a37046.foods;
 
-import android.nfc.Tag;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -17,7 +14,7 @@ import com.example.a37046.foods.base.BaseFragment;
 import com.example.a37046.foods.fragment.CommonFrameFragment;
 import com.example.a37046.foods.fragment.CustomFragment;
 import com.example.a37046.foods.fragment.OtherFragment;
-import com.example.a37046.foods.fragment.ThirdPartyFragment;
+import com.example.a37046.foods.fragment.CollectionFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onTabSelected(int position) {
             post = position;
-            Toast.makeText(MainActivity.this, "我是" + post, Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(MainActivity.this, "我是" + post, Toast.LENGTH_SHORT).show();
 //            switch (position){
 //                case 0:
 //                    post=0;
@@ -184,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
         mBaseFragments = new ArrayList<>();
         mBaseFragments.add(new CommonFrameFragment()); //常用框架
-        mBaseFragments.add(new ThirdPartyFragment()); //第三方框架
+        mBaseFragments.add(new CollectionFragment()); //第三方框架
         mBaseFragments.add(new CustomFragment()); //自定义框架
         mBaseFragments.add(new OtherFragment()); //其他框架
 

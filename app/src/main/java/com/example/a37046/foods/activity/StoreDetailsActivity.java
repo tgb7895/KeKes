@@ -2,6 +2,7 @@ package com.example.a37046.foods.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +37,7 @@ public class StoreDetailsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     List<FoodByShop> foodByShops;
     StoreDetailAdapter storeDetailAdapter;
+    Button collectButton;
     //判断收藏
     private int flagCollect;
 
@@ -49,7 +51,8 @@ public class StoreDetailsActivity extends AppCompatActivity {
 
 
         //收藏按钮
-        Button collectButton=findViewById(R.id.details_like_button);
+
+        collectButton = findViewById(R.id.details_like_button);
         collectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +60,7 @@ public class StoreDetailsActivity extends AppCompatActivity {
             }
         });
 
+        checkCollection();
         TextView detailsName=findViewById(R.id.details_name);
         detailsName.setText(getShopName());
 
@@ -122,6 +126,8 @@ public class StoreDetailsActivity extends AppCompatActivity {
                                 storeDetailAdapter.notifyDataSetChanged();
                             }
                         });
+
+
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -129,6 +135,43 @@ public class StoreDetailsActivity extends AppCompatActivity {
             }
         }).start();
     }
+
+    public void checkCollection(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient okHttpClient=new OkHttpClient();
+                    Request request2=new Request.Builder()
+                            .url("http://" + HttpUtil.SERVER + "/isCollected.do?user_id="+getUserId()+"&shop_food_id="+getShopId()+"&flag=0")
+                            .build();
+                    Response response2=okHttpClient.newCall(request2).execute();
+                    Success suc2 = null;
+                    if (response2.isSuccessful()){
+                        String json=response2.body().string();
+                        suc2=JSON.parseObject(json,Success.class);
+                    }
+
+                    final Success finalSuc = suc2;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (1 == finalSuc.getCollected()){
+                                collectButton.setBackgroundResource(R.drawable.btn_star_big_on);
+                            }else {
+                                collectButton.setBackgroundResource(R.drawable.btn_star_big_off);
+                            }
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }).start();
+    }
+
 
     public void collectionStore(){
         new Thread(new Runnable() {
@@ -161,9 +204,11 @@ public class StoreDetailsActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             if (1 == finalSuc.getCollected()){
-                                Toast.makeText(StoreDetailsActivity.this,"已经取消收藏",Toast.LENGTH_SHORT).show();
-                            }else {
+                                collectButton.setBackgroundResource(R.drawable.btn_star_big_on);
                                 Toast.makeText(StoreDetailsActivity.this,"收藏成功",Toast.LENGTH_SHORT).show();
+                            }else {
+                                collectButton.setBackgroundResource(R.drawable.btn_star_big_off);
+                                Toast.makeText(StoreDetailsActivity.this,"已经取消收藏",Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

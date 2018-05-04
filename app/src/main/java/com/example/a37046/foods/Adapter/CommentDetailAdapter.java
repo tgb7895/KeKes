@@ -18,6 +18,7 @@ public class CommentDetailAdapter extends RecyclerView.Adapter<CommentDetailAdap
     List<CommentDetail> commentDetailList;
 
     HomeEntity homeEntity;
+
     public CommentDetailAdapter(List<CommentDetail> commentDetailList) {
         this.commentDetailList = commentDetailList;
     }
@@ -59,5 +60,6 @@ public class CommentDetailAdapter extends RecyclerView.Adapter<CommentDetailAdap
             Content=itemView.findViewById(R.id.adapter_comment_content);
             Time=itemView.findViewById(R.id.adapter_comment_time);
         }
+
     }
 }
