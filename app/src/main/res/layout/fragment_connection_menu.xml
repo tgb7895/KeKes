@@ -4,10 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView4"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_connection_menu_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="menu"
-        android:textSize="@dimen/shifting_height" />
+        android:layout_height="match_parent" />
 </LinearLayout>

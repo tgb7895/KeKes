@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
-import com.example.a37046.foods.Adapter.AllUserCollectionStoreAdapter;
+import com.example.a37046.foods.Adapter.AllUserCollectionAdapter;
 import com.example.a37046.foods.R;
 import com.example.a37046.foods.base.BaseFragment;
 import com.example.a37046.foods.entity.AllUserCollection;
@@ -26,7 +25,7 @@ public class StoresFragment extends BaseFragment{
 
     RecyclerView recyclerView;
     List<AllUserCollection> collections;
-    AllUserCollectionStoreAdapter allUserCollectionStoreAdapter;
+    AllUserCollectionAdapter allUserCollectionAdapter;
     @Override
     protected View initView() {
         View view=View.inflate(mContext, R.layout.fragment_connection_stores,null);
@@ -35,9 +34,9 @@ public class StoresFragment extends BaseFragment{
         LinearLayoutManager layoutManager=new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
 
-        allUserCollectionStoreAdapter = new AllUserCollectionStoreAdapter(collections);
+        allUserCollectionAdapter = new AllUserCollectionAdapter(collections,0);
         getNetworkData();
-        recyclerView.setAdapter(allUserCollectionStoreAdapter);
+        recyclerView.setAdapter(allUserCollectionAdapter);
 
         return view;
     }
@@ -61,7 +60,7 @@ public class StoresFragment extends BaseFragment{
 
                     if (response.isSuccessful()){
                         String jsondata=response.body().string();
-                        Log.d("json数据",jsondata);
+                     //   Log.d("json数据",jsondata);
                         final List<AllUserCollection> allUserCollections= JSON.parseArray(jsondata,AllUserCollection.class);
 
                         getActivity().runOnUiThread(new Runnable() {
@@ -69,7 +68,7 @@ public class StoresFragment extends BaseFragment{
                             public void run() {
                                 collections.addAll(allUserCollections);
 
-                                allUserCollectionStoreAdapter.notifyDataSetChanged();
+                                allUserCollectionAdapter.notifyDataSetChanged();
 
                             }
                         });

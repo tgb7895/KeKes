@@ -144,7 +144,7 @@ public class MenudetailsActivity extends AppCompatActivity {
                         String jsonData=response.body().string();
                         final FoodDetail foodDetail = JSON.parseObject(jsonData, FoodDetail.class);
 
-                        Log.d("详细信息",foodDetail.getFoodname());
+               //         Log.d("详细信息",foodDetail.getFoodname());
 
                         runOnUiThread(new Runnable() {
                             @Override
