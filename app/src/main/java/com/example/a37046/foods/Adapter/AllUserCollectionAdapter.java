@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.example.a37046.foods.R;
+import com.example.a37046.foods.activity.MenudetailsActivity;
 import com.example.a37046.foods.activity.StoreDetailsActivity;
 import com.example.a37046.foods.entity.AllUserCollection;
 import com.example.a37046.foods.entity.HomeEntity;
@@ -114,7 +115,42 @@ public class AllUserCollectionAdapter extends RecyclerView.Adapter<AllUserCollec
             holder.enter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),"enter",Toast.LENGTH_SHORT);
+                    HomeEntity homeEntity=new HomeEntity();
+                    homeEntity.setShopname(allUserCollection.getShopname());
+                    homeEntity.setShop_id(allUserCollection.getShop_id());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("home_Entity_one",homeEntity);
+                    Intent intent=new Intent(v.getContext(),MenudetailsActivity.class);
+                    intent.putExtras(bundle);
+                    intent.putExtra("food_id",allUserCollection.getFood_id());
+                    v.getContext().startActivity(intent);
+                }
+            });
+            holder.cannel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    allUserCollectionList.remove(position);
+                    notifyDataSetChanged();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                OkHttpClient okHttpClient=new OkHttpClient();
+                                Request request1=new Request.Builder()
+                                        .url("http://" + HttpUtil.SERVER + "/userCollectFood.do?user_id="+getUserId(v)+"&food_id="+allUserCollection.getFood_id())
+                                        .build();
+                                Response response1=okHttpClient.newCall(request1).execute();
+                                //未使用  等待优化
+                                Success suc1;
+                                if (response1.isSuccessful()){
+                                    String json=response1.body().string();
+                                    suc1= JSON.parseObject(json,Success.class);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
                 }
             });
         }

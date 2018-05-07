@@ -59,6 +59,7 @@ public class MenuFragment extends BaseFragment{
                     Response response=okHttpClient.newCall(request).execute();
 
 
+
                     if (response.isSuccessful()){
                         String jsondata=response.body().string();
                         Log.d("json数据",jsondata);

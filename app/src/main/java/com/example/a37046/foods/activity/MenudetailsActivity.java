@@ -126,6 +126,7 @@ public class MenudetailsActivity extends AppCompatActivity {
     public String getFoodId(){
         int foodId=getIntent().getIntExtra("food_id",-1);
 
+
         return String.valueOf(foodId);
     }
 

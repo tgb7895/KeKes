@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.a37046.foods.R;
 import com.example.a37046.foods.base.BaseFragment;
@@ -23,6 +24,8 @@ public class CollectionFragment extends BaseFragment {
     List<BaseFragment> baseFragmentList;
     Fragment fragment;
     ViewPager viewPager;
+    Button shop;
+    Button menu;
     @Override
     protected View initView() {
 
@@ -33,6 +36,8 @@ public class CollectionFragment extends BaseFragment {
         initFragment();
 
         setViewPager();
+
+
         return view;
 
     }
@@ -51,7 +56,25 @@ public class CollectionFragment extends BaseFragment {
 
     public void initViews(View v){
         viewPager=v.findViewById(R.id.fragment_collection_viewpager);
+        shop=v.findViewById(R.id.fragment_collection_shop);
+        menu=v.findViewById(R.id.fragment_collection_menu);
 
+        shop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(0);
+                shop.setBackgroundResource(R.color.fuchsia);
+                menu.setBackgroundResource(R.color.mediumslateblue);
+            }
+        });
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(1);
+                menu.setBackgroundResource(R.color.fuchsia);
+                shop.setBackgroundResource(R.color.mediumslateblue);
+            }
+        });
     }
 
     public void setViewPager(){
@@ -62,11 +85,34 @@ public class CollectionFragment extends BaseFragment {
                 BaseFragment baseFragment=baseFragmentList.get(position);
                 return baseFragment;
             }
-
             @Override
             public int getCount() {
                 return baseFragmentList.size();
             }
+
         });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position==0){
+                    shop.setBackgroundResource(R.color.fuchsia);
+                    menu.setBackgroundResource(R.color.mediumslateblue);
+                }else{
+                    menu.setBackgroundResource(R.color.fuchsia);
+                    shop.setBackgroundResource(R.color.mediumslateblue);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
     }
 }
