@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -12,8 +11,8 @@ import com.ashokvarma.bottomnavigation.ShapeBadgeItem;
 import com.ashokvarma.bottomnavigation.TextBadgeItem;
 import com.example.a37046.foods.base.BaseFragment;
 import com.example.a37046.foods.fragment.CommonFrameFragment;
-import com.example.a37046.foods.fragment.CustomFragment;
-import com.example.a37046.foods.fragment.OtherFragment;
+import com.example.a37046.foods.fragment.SearchFragment;
+import com.example.a37046.foods.fragment.UserInformFragment;
 import com.example.a37046.foods.fragment.CollectionFragment;
 
 import java.util.ArrayList;
@@ -182,8 +181,8 @@ public class MainActivity extends AppCompatActivity {
         mBaseFragments = new ArrayList<>();
         mBaseFragments.add(new CommonFrameFragment()); //常用框架
         mBaseFragments.add(new CollectionFragment()); //第三方框架
-        mBaseFragments.add(new CustomFragment()); //自定义框架
-        mBaseFragments.add(new OtherFragment()); //其他框架
+        mBaseFragments.add(new SearchFragment()); //自定义框架
+        mBaseFragments.add(new UserInformFragment()); //其他框架
 
     }
 

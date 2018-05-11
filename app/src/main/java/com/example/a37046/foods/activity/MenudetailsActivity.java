@@ -6,12 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.example.a37046.foods.Adapter.CommentDetailAdapter;
@@ -117,7 +120,21 @@ public class MenudetailsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                new MaterialDialog.Builder(v.getContext())
+                        .title("评价")
+                        .inputType(InputType.TYPE_CLASS_TEXT)
+                        .input("请输入评价", "", new MaterialDialog.InputCallback() {
+                            @Override
+                            public void onInput(MaterialDialog dialog, CharSequence input) {
+                            }
+                        }).show();
+            }
+        });
     }
+
 
     public void loadingPictures(String pic){
         Glide.with(MenudetailsActivity.this).load(pic).into(foodPic);
