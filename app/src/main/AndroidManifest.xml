@@ -25,7 +25,8 @@
         <activity android:name=".activity.MenudetailsActivity" />
         <activity android:name=".activity.PlaceOrderActivity" />
         <activity android:name=".activity.AllUserCommentActivity" />
-        <activity android:name=".activity.AllUserOrderActivity"></activity>
+        <activity android:name=".activity.AllUserOrderActivity" />
+        <activity android:name=".activity.ModifyPersonalInformation"></activity>
     </application>
 
 </manifest>

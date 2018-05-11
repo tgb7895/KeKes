@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.a37046.foods.R;
 import com.example.a37046.foods.activity.AllUserCommentActivity;
 import com.example.a37046.foods.activity.AllUserOrderActivity;
+import com.example.a37046.foods.activity.ModifyPersonalInformation;
 import com.example.a37046.foods.base.BaseFragment;
 import com.example.a37046.foods.entity.UserById;
 
@@ -66,6 +67,14 @@ public class UserInformFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(mContext,AllUserCommentActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(mContext,ModifyPersonalInformation.class);
                 startActivity(intent);
             }
         });
