@@ -19,6 +19,10 @@ public class TimeSpinnerAdapter implements SpinnerAdapter {
     List<String> times;
     Context mContext;
 
+    public List<String> getTimes() {
+        return times;
+    }
+
     public TimeSpinnerAdapter(Context con) {
 
         times=new ArrayList<>();
@@ -35,7 +39,7 @@ public class TimeSpinnerAdapter implements SpinnerAdapter {
             String format = formatter.format(cal.getTime());
 
             if (i%2==0){
-                times.add(cou+"-----"+format);
+                times.add(cou+"-"+format);
             }
             m+=30;
             cou=format;

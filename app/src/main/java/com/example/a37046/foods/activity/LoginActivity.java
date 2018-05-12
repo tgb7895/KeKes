@@ -10,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.a37046.foods.MainActivity;
@@ -29,8 +31,10 @@ public class LoginActivity extends AppCompatActivity {
     EditText mloginName;
     EditText mloginPassword;
     Button loginButton;
+    TextView register;
     private ProgressDialog progressDialog;
 
+    CheckBox checkBox;
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -53,25 +57,59 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
+        takeData();
         setListen();
 
     }
+    public void saveData(String user,String password){
+        SharedPreferences.Editor editor=getSharedPreferences("login_ac",MODE_PRIVATE).edit();
+        editor.putString("user",user);
+        editor.putString("password",password);
+        editor.apply();
+    }
+    public void takeData(){
+        SharedPreferences login_ac = getSharedPreferences("login_ac", MODE_PRIVATE);
+        String user = login_ac.getString("user", "");
+        String password = login_ac.getString("password", "");
+        mloginName.setText(user);
+        mloginPassword.setText(password);
+        if (!user.equals("")){
+            checkBox.setChecked(true);
+        }
 
-
+    }
     public void initView(){
         mloginName=findViewById(R.id.login_name);
         mloginPassword=findViewById(R.id.login_password);
         loginButton=findViewById(R.id.login_button);
+        register=findViewById(R.id.activity_login_new_register);
+        checkBox=findViewById(R.id.activity_login_checkBox);
     }
 
     public void setListen(){
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (checkBox.isChecked()){
+                    saveData(mloginName.getText().toString(),mloginPassword.getText().toString());
+
+                }else {
+                    saveData("","");
+                }
                 landingJudgment(mloginName.getText().toString(),mloginPassword.getText().toString());
 
             }
         });
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
     }
     public void landingJudgment(String username,String password){
         final String s=username;

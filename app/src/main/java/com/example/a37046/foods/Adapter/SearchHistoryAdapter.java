@@ -1,5 +1,7 @@
 package com.example.a37046.foods.Adapter;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +11,9 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.example.a37046.foods.R;
+import com.example.a37046.foods.activity.MenudetailsActivity;
 import com.example.a37046.foods.entity.FoodDetail;
+import com.example.a37046.foods.entity.HomeEntity;
 import com.example.a37046.foods.util.HttpUtil;
 
 import java.util.List;
@@ -17,9 +21,10 @@ import java.util.List;
 
 public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdapter.Viewholder> {
 
-    private List<String> history;
+    private List<FoodDetail> history;
 
-    public SearchHistoryAdapter(List<String> history) {
+
+    public SearchHistoryAdapter(List<FoodDetail> history) {
         this.history = history;
     }
 
@@ -35,31 +40,22 @@ public class SearchHistoryAdapter extends RecyclerView.Adapter<SearchHistoryAdap
 
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
-        final String s = history.get(position);
-        holder.searchText.setText(s);
+        final FoodDetail foodDetail = history.get(position);
+        holder.searchText.setText(foodDetail.getFoodname());
 
         holder.text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-//                        try {
-//                            OkHttpClient okHttpClient=new OkHttpClient();
-//                            Request request=new Request.Builder()
-//                                    .url("http://"+ HttpUtil.SERVER+"/getFoodBySearch.do?search="+s)
-//                                    .build();
-//                            Response response=okHttpClient.newCall(request).execute();
-//                            if (response.isSuccessful()){
-//                                String json = response.body().string();
-//                                List<FoodDetail> foodDetails = JSON.parseArray(json, FoodDetail.class);
-//
-//                            }
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-                    }
-                }).start();
+                HomeEntity homeEntity=new HomeEntity();
+                homeEntity.setShopname("");
+                homeEntity.setShop_id(foodDetail.getShop_id());
+                Intent intent=new Intent(v.getContext(),MenudetailsActivity.class);
+                intent.putExtra("food_id",foodDetail.getFood_id());
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("home_Entity_one",homeEntity);
+
+                intent.putExtras(bundle);
+                v.getContext().startActivity(intent);
             }
         });
     }

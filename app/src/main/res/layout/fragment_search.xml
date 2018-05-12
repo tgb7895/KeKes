@@ -10,14 +10,8 @@
         android:iconifiedByDefault="false"
         android:queryHint="搜索内容" />
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_search_list"
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
-
-    <Button
-        android:id="@+id/fragment_search_clear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="清除记录" />
+        android:layout_height="match_parent" />
 </LinearLayout>

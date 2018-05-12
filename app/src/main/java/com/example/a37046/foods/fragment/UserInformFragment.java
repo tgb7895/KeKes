@@ -15,6 +15,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.a37046.foods.R;
 import com.example.a37046.foods.activity.AllUserCommentActivity;
 import com.example.a37046.foods.activity.AllUserOrderActivity;
+import com.example.a37046.foods.activity.LoginActivity;
 import com.example.a37046.foods.activity.ModifyPersonalInformation;
 import com.example.a37046.foods.base.BaseFragment;
 import com.example.a37046.foods.entity.UserById;
@@ -37,6 +38,8 @@ public class UserInformFragment extends BaseFragment {
     Button comment;
     TextView username;
     TextView phone;
+
+    Button exit;
     @Override
     protected View initView() {
 
@@ -55,6 +58,7 @@ public class UserInformFragment extends BaseFragment {
         comment=v.findViewById(R.id.fragment_userinform_comment);
         username=v.findViewById(R.id.fragment_userinform_user);
         phone=v.findViewById(R.id.fragment_userinform_phone);
+        exit=v.findViewById(R.id.fragment_userinform_comment_exit);
 
         order.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +83,14 @@ public class UserInformFragment extends BaseFragment {
             }
         });
 
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
     }
     @Override
     protected void initData() {

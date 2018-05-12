@@ -117,6 +117,8 @@ public class MenudetailsActivity extends AppCompatActivity {
                 intent.putExtras(bundle);
                 intent.putExtra("food_name",foodName.getText());
                 intent.putExtra("food_price",foodPrice.getText());
+                intent.putExtra("food_id",getFoodId());
+
                 startActivity(intent);
             }
         });

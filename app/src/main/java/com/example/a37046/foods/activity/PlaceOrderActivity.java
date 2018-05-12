@@ -1,10 +1,12 @@
 package com.example.a37046.foods.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ import com.example.a37046.foods.entity.HomeEntity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class PlaceOrderActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -37,11 +40,14 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
     String mPassword;
     String foodNames;
     String foodPrices;
-
+    String foodId;
 
     HomeEntity homeEntity;
 
     int count;//购买数量
+
+
+    Button buy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +56,11 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
         homeEntity=(HomeEntity) intent.getSerializableExtra("home_entity_two");
         foodNames = intent.getStringExtra("food_name");
         foodPrices=intent.getStringExtra("food_price");
+        foodId=intent.getStringExtra("food_id");
 
         initView();
         getAccountPassword();
         downloadData();
-
-
 
 
 
@@ -74,11 +79,45 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
         buyCount=findViewById(R.id.place_order_buy_count);
         sumPrice=findViewById(R.id.place_order_sum_price);
 
-        TimeSpinnerAdapter timeSpinnerAdapter=new TimeSpinnerAdapter(this);
+        buy=findViewById(R.id.place_order_commit);
+
+        final TimeSpinnerAdapter timeSpinnerAdapter=new TimeSpinnerAdapter(this);
         spinner.setAdapter(timeSpinnerAdapter);
 
         add.setOnClickListener(this);
         red.setOnClickListener(this);
+
+        final int[] num = new int[1];
+        buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int buyCount=count;
+              String sumPrices=sumPrice.getText().toString();
+                String userId = getUserId();
+                String foodIds=foodId;
+           final List<String> times = timeSpinnerAdapter.getTimes();
+
+                Intent intent=new Intent(PlaceOrderActivity.this,InsertOrderActivity.class);
+                intent.putExtra("count",buyCount);
+                intent.putExtra("sum",sumPrices);
+                intent.putExtra("user_id",userId);
+                intent.putExtra("food_id",foodIds);
+             intent.putExtra("time",times.get(num[0]));
+                startActivity(intent);
+
+            }
+        });
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                num[0] =position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
     }
 
@@ -118,5 +157,11 @@ public class PlaceOrderActivity extends AppCompatActivity implements View.OnClic
         int price = Integer.parseInt(foodPrices);
         sumPrice.setText(String.valueOf(price*count)+"￥");
 
+    }
+
+    public String getUserId() {
+        SharedPreferences pref = getSharedPreferences("login", Context.MODE_PRIVATE);
+        String userId = pref.getString("login_id", "");
+        return userId;
     }
 }

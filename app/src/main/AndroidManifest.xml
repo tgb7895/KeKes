@@ -26,7 +26,8 @@
         <activity android:name=".activity.PlaceOrderActivity" />
         <activity android:name=".activity.AllUserCommentActivity" />
         <activity android:name=".activity.AllUserOrderActivity" />
-        <activity android:name=".activity.ModifyPersonalInformation"></activity>
+        <activity android:name=".activity.ModifyPersonalInformation" />
+        <activity android:name=".activity.InsertOrderActivity"></activity>
     </application>
 
 </manifest>

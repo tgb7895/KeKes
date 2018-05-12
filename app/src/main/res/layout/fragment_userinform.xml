@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:id="@+id/fragment_user_inform"
         android:layout_width="match_parent"
@@ -41,7 +40,11 @@
                 android:layout_height="wrap_content"
                 android:text="手机号"
                 android:textColor="@color/white" />
+
+
         </LinearLayout>
+
+
     </LinearLayout>
 
     <Button
@@ -55,4 +58,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="我的评论" />
+    <Button
+        android:id="@+id/fragment_userinform_comment_exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="退出登陆" />
+
 </LinearLayout>
