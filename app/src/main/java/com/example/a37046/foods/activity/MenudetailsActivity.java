@@ -1,5 +1,6 @@
 package com.example.a37046.foods.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import com.example.a37046.foods.entity.CommentDetail;
 import com.example.a37046.foods.entity.FoodByShop;
 import com.example.a37046.foods.entity.FoodDetail;
 import com.example.a37046.foods.entity.HomeEntity;
+import com.example.a37046.foods.entity.Success;
 import com.example.a37046.foods.util.HttpUtil;
 
 import java.io.IOException;
@@ -48,6 +50,7 @@ public class MenudetailsActivity extends AppCompatActivity {
     Button contactTheMerchant;
     //收藏
     Button collect;
+    Boolean flagCollect;
 
     //评论列表
     List<CommentDetail> mCommentDetails;
@@ -75,7 +78,7 @@ public class MenudetailsActivity extends AppCompatActivity {
 
         getPageData();
         getListData();
-
+        judgmentCollection();
 
 
     }
@@ -133,6 +136,13 @@ public class MenudetailsActivity extends AppCompatActivity {
                             public void onInput(MaterialDialog dialog, CharSequence input) {
                             }
                         }).show();
+            }
+        });
+
+        collect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                storeCollectionOrCancellation();
             }
         });
     }
@@ -211,4 +221,92 @@ public class MenudetailsActivity extends AppCompatActivity {
             }
         }).start();
     }
+
+
+    public void judgmentCollection(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient okHttpClient = new OkHttpClient();
+                    Request request=new Request.Builder()
+                            .url("http://" + HttpUtil.SERVER +"/isCollected.do?user_id="+getUserId()+"&shop_food_id="+getFoodId()+"&flag=1")
+                            .build();
+                    Response response=okHttpClient.newCall(request).execute();
+
+                    if (response.isSuccessful()){
+                        String jsondata = response.body().string();
+                        final Success success = JSON.parseObject(jsondata, Success.class);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (success.getCollected()==1){
+                                    changeFavoriteIcon(true);
+                                }else{
+                                    changeFavoriteIcon(false);
+                                }
+                            }
+                        });
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }
+    public void changeFavoriteIcon(boolean flag){
+        if (flag){
+            collect.setBackgroundResource(R.drawable.detail_collect1);
+            flagCollect=true;
+        }else{
+            collect.setBackgroundResource(R.drawable.detail_collect);
+            flagCollect=false;
+        }
+    }
+
+    public String getUserId() {
+        SharedPreferences pref = getSharedPreferences("login", Context.MODE_PRIVATE);
+        String userId = pref.getString("login_id", "");
+        return userId;
+    }
+
+    /**
+     * 收藏店铺或者取消
+     */
+    public void storeCollectionOrCancellation(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    OkHttpClient okHttpClient = new OkHttpClient();
+                    Request request=new Request.Builder()
+                            .url("http://" + HttpUtil.SERVER +"/userCollectFood.do?user_id="+getUserId()+"&food_id="+getFoodId())
+                            .build();
+                    Response response=okHttpClient.newCall(request).execute();
+
+                    if (response.isSuccessful()){
+                        String jsondata = response.body().string();
+                        final Success success = JSON.parseObject(jsondata, Success.class);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (success.getSuccess()==1&&flagCollect){
+                                    changeFavoriteIcon(false);
+                                }else{
+                                    changeFavoriteIcon(true);
+                                }
+                            }
+                        });
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+
 }

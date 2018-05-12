@@ -95,11 +95,9 @@
 
         <Button
             android:id="@+id/menu_deatil_collect"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:drawable/btn_star_big_off"
-            android:text="收藏" />
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/detail_collect" />
 
         <Button
             android:id="@+id/menu_deatil_buy"
